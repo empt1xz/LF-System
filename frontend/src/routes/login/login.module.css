@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+@media screen and (width < 1226px) {
+  .container {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

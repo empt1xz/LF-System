@@ -1,0 +1,22 @@
+import { fromNodeHeaders } from "better-auth/node";
+import { auth } from "../lib/auth";
+import type { Response, Request, NextFunction } from "express";
+
+export async function Middleware(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const session = await auth.api.getSession({
+    headers: fromNodeHeaders(req.headers),
+  });
+
+  if (!session) {
+    res.status(401).json({
+      message: "Você não tem permissão",
+    });
+    return;
+  }
+
+  next();
+}
